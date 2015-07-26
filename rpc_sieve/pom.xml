@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>xyz.anduo</groupId>
-            <artifactId>rcp-common</artifactId>
+            <artifactId>rpc-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!-- JUnit -->

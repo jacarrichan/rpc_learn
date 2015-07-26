@@ -1,8 +1,7 @@
 package xyz.anduo.rpc.simple;
 
-
-
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +16,21 @@ import xyz.anduo.rpc.sieve.modules.simple.HelloService;
 public class HelloServiceTest {
 
 	@Autowired
-    private RpcProxy rpcProxy;
- 
-    @Test
-    public void helloTest() {
-        try {
-			HelloService helloService = rpcProxy.create(HelloService.class);
-			String result = helloService.hello("World");
-			Assert.assertEquals("Hello! World", result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    }
+	private RpcProxy rpcProxy;
 
+	@Before
+	public void init() {
+		System.out.println("============================================");
+	}
+
+	@Test
+	public void helloTest() {
+		new Thread() {
+			public void run() {
+				HelloService helloService = rpcProxy.create(HelloService.class);
+				String result = helloService.hello("World");
+				Assert.assertEquals("Hello! World", result);
+			}
+		}.start();
+	}
 }
