@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationContextAware;
 import xyz.anduo.rpc.client.RpcRequest;
 import xyz.anduo.rpc.client.RpcResponse;
 import xyz.anduo.rpc.common.RpcDecoder;
+import xyz.anduo.rpc.common.RpcEncoder;
 
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
@@ -66,8 +67,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 						public void initChannel(SocketChannel channel) throws Exception {
 							channel.pipeline().addLast(new RpcDecoder(RpcRequest.class)) // 将
 																							// RPC
-																							// 请求进行解码（为了处理请求）
-									.addLast(new RpcDecoder(RpcResponse.class)) // 将
+									.addLast(new RpcEncoder(RpcResponse.class)) // 将
 																				// RPC
 																				// 响应进行编码（为了返回响应）
 									.addLast(new RpcHandler(handlerMap)); // 处理
